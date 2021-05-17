@@ -1,20 +1,25 @@
 from django.http import HttpResponse
-from .models import  TreasureHoard, TreasureHoardTier, TreasureHoardRollTable, Rarity, ContentSource
-from .art_object_models import ArtObject, ArtObjectGroup, ArtObjectGroupEntry, ArtObjectTreasureHoardEntry, TreasureHoardArtObjectRoll
-from .gem_models import Gem, GemGroup, GemGroupEntry, GemTreasureHoardEntry, TreasureHoardGemRoll
-from .coin_models import Coin, CoinTreasureHoardEntry, TreasureHoardCoinRoll
-from .magic_item_models import ItemSignifigance, MagicItem, MagicItemGroup, MagicItemGroupEntry, MagicItemInstance, MagicItemTreasureHoardEntry, MagicItemType, TreasureHoardMagicItemRoll
+from .models.models import  TreasureHoard, TreasureHoardTier, TreasureHoardRollTable, Rarity, ContentSource
+from .models.art_object_models import ArtObject, ArtObjectGroup, ArtObjectGroupEntry, ArtObjectTreasureHoardEntry, TreasureHoardArtObjectRoll
+from .models.gem_models import Gem, GemGroup, GemGroupEntry, GemTreasureHoardEntry, TreasureHoardGemRoll
+from .models.coin_models import Coin, CoinTreasureHoardEntry, TreasureHoardCoinRoll
+from .models.magic_item_models import ItemSignifigance, MagicItem, MagicItemGroup, MagicItemGroupEntry, MagicItemInstance, MagicItemTreasureHoardEntry, MagicItemType, TreasureHoardMagicItemRoll
 import random
 from .data.treasure_data import treasure_hoard_tiers, treasure_hoard_roll_tables, art_object_groups, gem_groups, rolls, art_object_group_entries, gem_group_entries, coins, raritys, content_sources, magic_items, magic_item_groups, magic_item_group_entries, magic_item_types, item_sigs
 
 def index(request):
     outstr = '<style>body {color: #112244; background-color: #f5fdd9; width: 600px; display: flex; margin: auto; flex-direction: column;}</style>'
+    outstr += 'World Gen Home'
+    return HttpResponse(outstr)
 
+def treasure(request):
+    outstr = '<style>body {color: #112244; background-color: #f5fdd9; width: 600px; display: flex; margin: auto; flex-direction: column;}</style>'
     # outstr += delete_all_treasure_hoard_data()
     # outstr += initiliaze_treasure_tables_to_dmg()
     outstr += create_sample_treasure_hoard(magic_item_group_entries, treasure_hoard_tiers)
 
     return HttpResponse(outstr)
+
 
 def initiliaze_treasure_tables_to_dmg():
     outstr = '<br><br><b>Initiliazing Treasure Tables to DMG specifications.</b><br>'
