@@ -1,8 +1,8 @@
 from django.urls import path
 
-from . import views
+from .views import views, treasure_views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('treasure', views.treasure, name='treasure')
+    path('treasure', treasure_views.treasure, name='treasure')
 ]
