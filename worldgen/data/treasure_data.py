@@ -350,18 +350,31 @@ raritys = [
 ]
 
 content_sources = [
-    { "type": "Adventure", "title": "Rime of the Frostmaiden" }, 
-    { "type": "Source", "title": "Tasha's Cauldron of Everything" }, 
-    { "type": "Source", "title": "Dungeon Master's Guide" }, 
-    { "type": "Adventure", "title": "Candlekeep Mysteries" }, 
-    { "type": "Adventure", "title": "Tomb of Annihilation" }, 
-    { "type": "Source", "title": "Xanathar's Guide to Everything" }, 
-    { "type": "Adventure", "title": "Dragon Heist" }, 
-    { "type": "Adventure", "title": "Princes of the Apocalypse" }, 
-    { "type": "Adventure", "title": "Storm King's Thunder" }, 
-    { "type": "Adventure", "title": "Descent into Avernus" },
-    { "type": "Adventure", "title": "Out of the Abyss" }, 
-    { "type": "Adventure", "title": "Tyranny of Dragons" }
+    { "abbreviation": "RotF", "type": "Adventure", "title": "Rime of the Frostmaiden" }, 
+    { "abbreviation": "TCoF", "type": "Source", "title": "Tasha's Cauldron of Everything" }, 
+    { "abbreviation": "DMG", "type": "Source", "title": "Dungeon Master's Guide" }, 
+    { "abbreviation": "CKM", "type": "Adventure", "title": "Candlekeep Mysteries" }, 
+    { "abbreviation": "ToA", "type": "Adventure", "title": "Tomb of Annihilation" }, 
+    { "abbreviation": "XGtE", "type": "Source", "title": "Xanathar's Guide to Everything" }, 
+    { "abbreviation": "DH", "type": "Adventure", "title": "Dragon Heist" }, 
+    { "abbreviation": "PotA", "type": "Adventure", "title": "Princes of the Apocalypse" }, 
+    { "abbreviation": "SKT", "type": "Adventure", "title": "Storm King's Thunder" }, 
+    { "abbreviation": "DiA", "type": "Adventure", "title": "Descent into Avernus" },
+    { "abbreviation": "OofA", "type": "Adventure", "title": "Out of the Abyss" }, 
+    { "abbreviation": "ToD", "type": "Adventure", "title": "Tyranny of Dragons" },
+    { "abbreviation": "ADD", "type": "Source", "title": "AideDD" },
+    { "abbreviation": "DMag", "type": "Source", "title": "Dragon Mag" },
+    { "abbreviation": "EK", "type": "Source", "title": "Essentials Kit" },
+    { "abbreviation": "AL", "type": "Source", "title": "Adventurers League" },
+    { "abbreviation": "Eb", "type": "Source", "title": "Ebberon" },
+    { "abbreviation": "VGtM", "type": "Source", "title": "Volo's Guide to Monsters" },
+    { "abbreviation": "GGtR", "type": "Source", "title": "Guildmasters' Guide to Ravnica" },
+    { "abbreviation": "MToF", "type": "Source", "title": "Mordenkainen's Tome of Foes" },
+    { "abbreviation": "LR", "type": "Adventure", "title": "Locathah Rising" },
+    { "abbreviation": "EE", "type": "Source", "title": "Elemental Evil" },
+    { "abbreviation": "TP", "type": "Source", "title": "Tortle Package" },
+    { "abbreviation": "AI", "type": "Source", "title": "Aquisitions Incorporated" },
+    { "abbreviation": "PHB", "type": "Source", "title": "Player's Handbook" },
 ]
 
 item_sigs = [

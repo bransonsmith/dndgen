@@ -1,4 +1,12 @@
 from django.http import HttpResponse
+from ..models.models import *
+from ..models.art_object_models import *
+from ..models.coin_models import *
+from ..models.gem_models import *
+from ..models.magic_item_models import *
+from ..models.monster_models import *
+from ..models.world_models import *
+
 def index(request):
     outstr = '<style>body {color: #112244; background-color: #f5fdd9; width: 600px; display: flex; margin: auto; flex-direction: column;}</style>'
     outstr += 'World Gen Home'
@@ -23,7 +31,7 @@ def get_new_model_object(model_type, dict):
     try:
         return globals()[model_type].get_model_from_seed_dict(dict)
     except Exception as e:
-        raise Exception('Model Type Not Found: ' + model_type)
+        raise Exception('Could not create model from given object: ' + model_type + '<br>' + str(dict) + ' ... <br>\n' + str(e))
 
 def roll_dice(dice: str):
     dice_split = dice.split('d')

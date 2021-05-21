@@ -34,12 +34,13 @@ class TreasureHoard(models.Model):
 class ContentSource(models.Model):
     title = models.CharField(max_length=100, unique=True)
     type = models.CharField(max_length=100)
+    abbreviation = models.CharField(max_length=10)
     created = models.DateTimeField('Creation Time', default=timezone.now)
     def __str__(self):
         return f'{self.id} | {self.title}'
     @staticmethod
     def get_model_from_seed_dict(dict):
-        return ContentSource(title=dict["title"], type=dict["type"])
+        return ContentSource(title=dict["title"], type=dict["type"], abbreviation=dict["abbreviation"])
 
 class Rarity(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -51,49 +52,6 @@ class Rarity(models.Model):
     def get_model_from_seed_dict(dict):
         return Rarity(name=dict["name"], order=dict["order"])
 
-# class Region(models.Model):
-#     name = models.CharField(max_length=100)
-#     description = models.CharField(max_length=500)
-#     region = models.ForeignKey(Biome, on_delete=models.CASCADE)
-#     height = models.IntegerField(default=0)
-#     width = models.IntegerField(default=0)
-#     x = models.IntegerField(default=0)
-#     y = models.IntegerField(default=0)
-#     created = models.DateTimeField('Creation Time')
-
-# class Biome(models.Model):
-#     name = models.CharField(max_length=100)
-#     description = models.CharField(max_length=500)
-#     biome_type = models.ForeignKey(BiomeType)
-#     region = models.ForeignKey(Biome, on_delete=models.CASCADE)
-#     height = models.IntegerField(default=0)
-#     width = models.IntegerField(default=0)
-#     x = models.IntegerField(default=0)
-#     y = models.IntegerField(default=0)
-#     created = models.DateTimeField('Creation Time')
-
-# class Location(models.Model):
-#     name = models.CharField(max_length=100)
-#     description = models.CharField(max_length=500)
-#     biome = models.ForeignKey(Biome, on_delete=models.CASCADE)
-#     location_type = models.ForeignKey(LocationType)
-#     height = models.IntegerField(default=0)
-#     width = models.IntegerField(default=0)
-#     x = models.IntegerField(default=0)
-#     y = models.IntegerField(default=0)
-#     created = models.DateTimeField('Creation Time')
-
-# class BiomeType(models.Model):
-#     name = models.CharField(max_length=100)
-#     created = models.DateTimeField('Creation Time')
-
-# class LocationType(models.Model):
-#     name = models.CharField(max_length=100)
-#     created = models.DateTimeField('Creation Time')
-
-# class ContentSource(models.Model):
-#     title = models.CharField(max_length=100)
-#     created = models.DateTimeField('Creation Time')
 
 # Treasure Hoard Location Mapping
 # Treasure Hoard Owner/Person/Monster Mapping

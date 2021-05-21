@@ -1,10 +1,11 @@
 from django.contrib import admin
 
-from .models.models import TreasureHoardTier, TreasureHoard, TreasureHoardRollTable
-from .models.art_object_models import ArtObject, ArtObjectGroup, TreasureHoardArtObjectRoll, ArtObjectGroupEntry, ArtObjectTreasureHoardEntry
-from .models.gem_models import Gem, GemGroup, TreasureHoardGemRoll, GemGroupEntry, GemTreasureHoardEntry
-from .models.coin_models import Coin, CoinTreasureHoardEntry, TreasureHoardCoinRoll
-from .models.magic_item_models import ItemSignifigance, MagicItem, MagicItemGroup, MagicItemGroupEntry, MagicItemInstance, MagicItemTreasureHoardEntry, MagicItemType, TreasureHoardMagicItemRoll
+from .models.models import *
+from .models.art_object_models import *
+from .models.gem_models import *
+from .models.coin_models import *
+from .models.magic_item_models import *
+from .models.monster_models import *
 
 admin.site.register(TreasureHoardTier)
 admin.site.register(TreasureHoard)
@@ -34,3 +35,9 @@ admin.site.register(MagicItemInstance)
 admin.site.register(MagicItemTreasureHoardEntry) 
 admin.site.register(MagicItemType) 
 admin.site.register(TreasureHoardMagicItemRoll)
+
+admin.site.register(CreatureSize)
+admin.site.register(MonsterType)
+admin.site.register(MonsterSubType)
+admin.site.register(Race)
+admin.site.register(Monster)
