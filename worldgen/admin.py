@@ -41,3 +41,9 @@ admin.site.register(MonsterType)
 admin.site.register(MonsterSubType)
 admin.site.register(Race)
 admin.site.register(Monster)
+
+admin.site.register(Encounter)
+admin.site.register(EncounterXpMultiplier)
+admin.site.register(EncounterXpThreshold)
+admin.site.register(EncounterDifficulty)
+

@@ -10,6 +10,7 @@ from.views import add, roll_dice, get_new_model_object
 
 def treasure(request):
     outstr = '<style>body {color: #112244; background-color: #f5fdd9; width: 600px; display: flex; margin: auto; flex-direction: column;}</style>'
+    outstr = '<h1>Treasure</h1>'
     outstr += delete_all_treasure_hoard_data()
     outstr += initiliaze_treasure_tables_to_dmg()
     # outstr += create_sample_treasure_hoard(magic_item_group_entries, treasure_hoard_tiers)

@@ -1,8 +1,10 @@
+import math
 from django.http import HttpResponse
 from ..models.models import Rarity, ContentSource
 from ..models.monster_models import *
 import random
-from ..data.monster_data import monster_types, monsters, subtypes
+import math
+from ..data.monster_data import *
 from ..data.creature_data import creature_sizes, races
 from ..data.treasure_data import raritys, content_sources
 from.views import add, roll_dice, get_new_model_object
@@ -12,7 +14,7 @@ def monster(request):
     outstr = '<h1>Monsters</h1>'
     outstr += delete_all_monster_data()
     outstr += initiliaze_monster_tables_to_dmg()
-    # outstr += create_sample_treasure_hoard(magic_item_group_entries, treasure_hoard_tiers)
+    outstr += create_sample_monster_encounter()
 
     return HttpResponse(outstr)
 
@@ -25,111 +27,46 @@ def initiliaze_monster_tables_to_dmg():
     outstr += add(subtypes, 'MonsterSubType')
     outstr += add(races, 'Race')
     outstr += add(monsters, 'Monster')
+    outstr += add(encounter_difficulties, 'EncounterDifficulty')
+    outstr += add(encounter_multipliers, 'EncounterXpMultiplier')
+    outstr += add(encounter_thresholds, 'EncounterXpThreshold')
+    outstr += add(cr_xp, 'CrXpValue')
     return outstr
 
-def create_sample_treasure_hoard(magic_item_group_entries, treasure_hoard_tiers):
-    outstr = '<br><br><b>Creating Sample Treasure Hoard</b><br><br><br>'
+def create_sample_monster_encounter():
+    outstr = '<br><br><b>Creating Sample Monster Encounter</b><br><br><br>'
 
-    # rand_tier_num = random.randint(0, len(treasure_hoard_tiers)-1)
-    # tier_name = treasure_hoard_tiers[rand_tier_num]["name"]
+    party_level = random.randint(1, 10)
+    num_players = random.randint(3, 5)
+    dif_index = random.randint(0, len(encounter_difficulties) -1)
+    difficulty = encounter_difficulties[dif_index]["name"]
+    budget = EncounterXpThreshold.objects.filter(level=party_level, difficulty__name__contains=difficulty).first().xp * num_players
 
-    # tier = TreasureHoardTier.objects.filter(name__iexact=tier_name).first()
-    # th = TreasureHoard(tier=tier, name='Sample Treasure Hoard')
-    # th.save()
+    outstr += '<br>Party Level: ' + str(party_level)
+    outstr += '<br>Party Size: ' + str(num_players)
+    outstr += '<br>Difficulty: ' + str(difficulty)
+    outstr += '<br>Total XP Budget: ' + str(budget)
 
-    # roll_min = TreasureHoardRollTable.objects.all().order_by('min_roll').first().min_roll
-    # roll_max = TreasureHoardRollTable.objects.all().order_by('-max_roll').first().max_roll
-    # roll = random.randint(roll_min, roll_max)
-    # outstr = outstr + '<b>Rolling on treasure hoard table:' + str(tier.name) + ' <br>(' + str(roll_min) + '-' + str(roll_max) + ') => ' + str(roll) + '<br></b>'
+    outstr += '<br><br>Getting monsters from: "All Monsters, Equally Weighted"'
 
-    # roll_table_result = TreasureHoardRollTable.objects.filter(tier=tier, min_roll__lte=roll, max_roll__gte=roll).first()
+    all_monsters = Monster.objects.all()
+    monster_count = len(all_monsters)
+    outstr += '<br>Selecting from ' + str(monster_count) + ' monsters...'
 
-    # art_object_rolls = TreasureHoardArtObjectRoll.objects.filter(treasure_hoard_roll=roll_table_result)
-    # for art_roll in art_object_rolls:
-    #     outstr = outstr + '<br><br>Need to add ' + str(art_roll.dice) + ' art objects from ' + str(art_roll.art_object_group.name)
-    #     quantity = roll_dice(art_roll.dice)
-    #     outstr = outstr + '<br>Quantity (' + art_roll.dice + ') => ' + str(quantity)
-
-    #     art_object_group = art_roll.art_object_group
-    #     art_min_roll = ArtObjectGroupEntry.objects.filter(art_object_group=art_object_group).order_by('min_roll').first().min_roll
-    #     art_max_roll = ArtObjectGroupEntry.objects.filter(art_object_group=art_object_group).order_by('-max_roll').first().max_roll
-        
-    #     for i in range(0, quantity):
-    #         art_die_roll = random.randint(art_min_roll, art_max_roll)
-    #         # outstr = outstr + '<br>Art object table roll (' + str(art_min_roll) + '-' + str(art_max_roll) + ') => ' + str(art_die_roll)
-
-    #         try:
-    #             art_object = ArtObjectGroupEntry.objects.filter(art_object_group=art_object_group, min_roll__lte=art_die_roll, max_roll__gte=art_die_roll).first().art_object
-
-    #             entry = ArtObjectTreasureHoardEntry(treasure_hoard=th, art_object=art_object, quantity=quantity)
-    #             entry.save()
-    #             outstr = outstr + '<br>' + '' + str(i + 1) + '. ' + str(entry.art_object.name)
-    #         except Exception as e:
-    #             outstr = outstr + '<br><b>' + str(i + 1) + '. FAILED! ' + str(e) + '</b>'
-
-    # gem_rolls = TreasureHoardGemRoll.objects.filter(treasure_hoard_roll=roll_table_result)
-    # for gem_roll in gem_rolls:
-    #     outstr = outstr + '<br><br>Need to add ' + str(gem_roll.dice) + ' gems from ' + str(gem_roll.gem_group.name)
-    #     quantity = roll_dice(gem_roll.dice)
-    #     outstr = outstr + '<br>Quantity (' + gem_roll.dice + ') => ' + str(quantity)
-
-    #     gem_group = gem_roll.gem_group
-    #     gem_min_roll = GemGroupEntry.objects.filter(gem_group=gem_group).order_by('min_roll').first().min_roll
-    #     gem_max_roll = GemGroupEntry.objects.filter(gem_group=gem_group).order_by('-max_roll').first().max_roll
-        
-    #     for i in range(0, quantity):
-    #         gem_die_roll = random.randint(gem_min_roll, gem_max_roll)
-    #         # outstr = outstr + '<br>Gem table roll (' + str(gem_min_roll) + '-' + str(gem_max_roll) + ') => ' + str(gem_die_roll)
-
-    #         gem = GemGroupEntry.objects.filter(gem_group=gem_group, min_roll__lte=gem_die_roll, max_roll__gte=gem_die_roll).first().gem
-
-    #         try:
-    #             entry = GemTreasureHoardEntry(treasure_hoard=th, gem=gem, quantity=quantity)
-    #             entry.save()
-    #             outstr = outstr + '<br>' + '' + str(i + 1) + '. ' + str(entry.gem.name)
-    #         except Exception as e:
-    #             outstr = outstr + '<br><b>' + str(i + 1) + '. FAILED! ' + str(e) + '</b>'
-
-    # coin_rolls = TreasureHoardCoinRoll.objects.filter(treasure_hoard_roll=roll_table_result)
-    # for coin_roll in coin_rolls:
-    #     outstr = outstr + '<br><br>Need to add ' + str(coin_roll.dice) + ' ' + str(coin_roll.coin.abbreviation)
-    #     quantity = roll_dice(coin_roll.dice)
-    #     # outstr = outstr + '<br>Quantity (' + coin_roll.dice + ') => ' + str(quantity)
-
-    #     entry = CoinTreasureHoardEntry(treasure_hoard=th, coin=coin_roll.coin, quantity=quantity)
-    #     entry.save()
-    #     outstr = outstr + '<br>' + str(quantity) + ' ' + str(entry.coin.abbreviation)
-
-    # magic_rolls = TreasureHoardMagicItemRoll.objects.filter(treasure_hoard_roll=roll_table_result)
-    # for magic_roll in magic_rolls:
-    #     outstr = outstr + '<br><br>Need to add ' + str(magic_roll.dice) + ' items from ' + str(magic_roll.magic_item_group.name)
-    #     quantity = roll_dice(magic_roll.dice)
-    #     outstr = outstr + '<br>Quantity (' + magic_roll.dice + ') => ' + str(quantity)
-
-    #     magic_item_group = magic_roll.magic_item_group
-    #     magic_item_min_roll = MagicItemGroupEntry.objects.filter(magic_item_group=magic_item_group).order_by('min_roll').first().min_roll
-    #     magic_item_max_roll = MagicItemGroupEntry.objects.filter(magic_item_group=magic_item_group).order_by('-max_roll').first().max_roll
-        
-    #     for i in range(0, quantity):
-    #         magic_item_die_roll = random.randint(magic_item_min_roll, magic_item_max_roll)
-    #         # outstr = outstr + '<br>Magic Item table roll (' + str(magic_item_min_roll) + '-' + str(magic_item_max_roll) + ') => ' + str(magic_item_die_roll)
-    #         try:
-    #             magic_item_entry = MagicItemGroupEntry.objects.filter(magic_item_group=magic_item_group, min_roll__lte=magic_item_die_roll, max_roll__gte=magic_item_die_roll).first()
-    #             magic_item = magic_item_entry.magic_item
-
-    #             if len(magic_item_entry.extra_dice) > 0:
-    #                 extra_roll = roll_dice(magic_item_entry.extra_dice)
-    #                 extra_group = MagicItemGroup.objects.filter(name=magic_item_entry.extra_group.name).first()
-    #                 magic_item = MagicItemGroupEntry.objects.filter(magic_item_group=extra_group, min_roll__lte=extra_roll, max_roll__gte=extra_roll).first().magic_item
-        
-    #             magic_item_instance = MagicItemInstance(name=magic_item.name, magic_item=magic_item)
-    #             magic_item_instance.save()
-
-    #             entry = MagicItemTreasureHoardEntry(treasure_hoard=th, magic_item_instance=magic_item_instance, quantity=quantity)
-    #             entry.save()
-    #             outstr = outstr + '<br>' + str(i + 1) + '. ' + str(entry.magic_item_instance.name)
-    #         except Exception as e:
-    #             outstr = outstr + '<b><br>' + str(i + 1) + '. FAILED! ' + str(e)
+    budget_left = budget
+    selected_monster = None
+    num_monsters = 0
+    while budget_left > 49:
+        while selected_monster is None:
+            monster_index = random.randint(0, len(all_monsters) -1)
+            mon = list(all_monsters)[monster_index]
+            xp = CrXpValue.objects.filter(cr=mon.cr).first().xp
+            if xp < budget_left:
+                selected_monster = mon
+                num_monsters = random.randint(1, math.floor(budget_left / xp))
+                budget_left -= xp * num_monsters
+        outstr += '<br>Adding ' + str(num_monsters) + 'x ' + str(selected_monster.name)+ ' cr = ' + str(round(selected_monster.cr, 3)) + ' (-' + str(xp * num_monsters) + 'xp)'
+        selected_monster = None
 
     return outstr
 
@@ -142,4 +79,8 @@ def delete_all_monster_data():
     MonsterSubType.objects.all().delete()
     Monster.objects.all().delete()
     Race.objects.all().delete()
+    EncounterDifficulty.objects.all().delete()
+    EncounterXpMultiplier.objects.all().delete()
+    EncounterXpThreshold.objects.all().delete()
+    CrXpValue.objects.all().delete()
     return outstr

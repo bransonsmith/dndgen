@@ -71,6 +71,64 @@ class Monster(models.Model):
         is_legendary = len(dict["isLegendary"]) > 0
         return Monster(name=dict["name"], cr=dict["cr"], monster_type=monster_type, size=creature_size, race=race, subtype=subtype, ac=dict["ac"], hp=dict["hp"], source=source, is_legendary=is_legendary) 
 
+class EncounterDifficulty(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    created = models.DateTimeField('Creation Time', default=timezone.now)
+    def __str__(self):
+        return f'{self.id} | {self.name}'
+    @staticmethod
+    def get_model_from_seed_dict(dict):
+        return EncounterDifficulty(name=dict["name"]) 
+
+class Encounter(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.CharField(max_length=300)
+    level = models.IntegerField(default=0)
+    difficulty = models.ForeignKey(EncounterDifficulty, on_delete=models.CASCADE)
+    created = models.DateTimeField('Creation Time', default=timezone.now)
+    def __str__(self):
+        return f'{self.id} | {self.name}'
+
+class MonsterInstance(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    monster = models.ForeignKey(Monster, on_delete=models.CASCADE)
+    current_hp = models.IntegerField(default=0)
+    created = models.DateTimeField('Creation Time', default=timezone.now)
+    def __str__(self):
+        return f'{self.id} | {self.name} | {self.monster}'
+
+class EncounterXpThreshold(models.Model):
+    level = models.IntegerField(default=0)
+    xp = models.IntegerField(default=0)
+    difficulty = models.ForeignKey(EncounterDifficulty, on_delete=models.CASCADE)
+    created = models.DateTimeField('Creation Time', default=timezone.now)
+    def __str__(self):
+        return f'{self.id} | {self.level} | {self.difficulty.name}'
+    @staticmethod
+    def get_model_from_seed_dict(dict):
+        difficulty = EncounterDifficulty.objects.filter(name__iexact=dict["difficulty"]).first()
+        return EncounterXpThreshold(difficulty=difficulty, level=dict["level"], xp=dict["xp"]) 
+
+class EncounterXpMultiplier(models.Model):
+    monster_count_min = models.IntegerField(default=0)
+    monster_count_max = models.IntegerField(default=0)
+    multiplier = models.DecimalField(default=0, max_digits=20, decimal_places=10)
+    created = models.DateTimeField('Creation Time', default=timezone.now)
+    def __str__(self):
+        return f'{self.id} | ({self.monster_count_min}-{self.monster_count_max}) | {self.multiplier}x'
+    @staticmethod
+    def get_model_from_seed_dict(dict):
+        return EncounterXpMultiplier(monster_count_min=dict["monster_count_min"], monster_count_max=dict["monster_count_max"], multiplier=dict["multiplier"]) 
+
+class CrXpValue(models.Model):
+    cr = models.DecimalField(default=0, max_digits=20, decimal_places=10)
+    xp = models.IntegerField(default=0)
+    def __str__(self):
+        return f'{self.id} | {self.cr}'
+    @staticmethod
+    def get_model_from_seed_dict(dict):
+        return CrXpValue(cr=dict["cr"], xp=dict["xp"]) 
+
 # class Npc(models.Model):
 #     name = models.CharField(max_length=100)
 #     race = models.ForeignKey(Race, on_delete=models.CASCADE)
