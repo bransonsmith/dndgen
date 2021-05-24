@@ -11,9 +11,9 @@ from.views import add, roll_dice, get_new_model_object
 def treasure(request):
     outstr = '<style>body {color: #112244; background-color: #f5fdd9; width: 600px; display: flex; margin: auto; flex-direction: column;} .content {width: 600px; display: flex; margin: auto; flex-direction: column;}</style><div class="content">'
     outstr = '<h1>Treasure</h1>'
-    # outstr += delete_all_treasure_hoard_data()
-    # outstr += initiliaze_treasure_tables_to_dmg()
-    outstr += create_sample_treasure_hoard(magic_item_group_entries, treasure_hoard_tiers)
+    outstr += delete_all_treasure_hoard_data()
+    outstr += initiliaze_treasure_tables_to_dmg()
+    outstr += create_sample_treasure_hoard()
 
     outstr += '</div>'
     return HttpResponse(outstr)
@@ -48,7 +48,7 @@ def initiliaze_treasure_tables_to_dmg():
     outstr += addMagicItemRolls(rolls)
     return outstr
 
-def create_sample_treasure_hoard(magic_item_group_entries, treasure_hoard_tiers):
+def create_sample_treasure_hoard():
     outstr = '<br><br><b>Creating Sample Treasure Hoard</b><br><br><br>'
 
     rand_tier_num = random.randint(0, len(treasure_hoard_tiers)-1)
