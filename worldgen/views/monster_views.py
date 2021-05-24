@@ -7,13 +7,13 @@ import math
 from ..data.monster_data import *
 from ..data.creature_data import creature_sizes, races
 from ..data.treasure_data import raritys, content_sources
-from.views import add, roll_dice, get_new_model_object
+from.views import add
 
 def monster(request):
     outstr = '<style>body {color: #112244; background-color: #f5fdd9; width: 600px; display: flex; margin: auto; flex-direction: column;}</style>'
     outstr = '<h1>Monsters</h1>'
-    outstr += delete_all_monster_data()
-    outstr += initiliaze_monster_tables_to_dmg()
+    # outstr += delete_all_monster_data()
+    # outstr += initiliaze_monster_tables_to_dmg()
     outstr += create_sample_monster_encounter()
 
     return HttpResponse(outstr)
