@@ -34,24 +34,3 @@ class Environment(models.Model):
     def __str__(self):
         return f'{self.id} | {self.name}'
 
-class LocationType(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    created = models.DateTimeField('Creation Time', default=timezone.now)
-    def __str__(self):
-        return f'{self.id} | {self.name}'
-    @staticmethod
-    def get_model_from_seed_dict(dict):
-        return LocationType(name=dict["name"])
-
-class Location(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.CharField(max_length=500)
-    environment = models.ForeignKey(Environment, on_delete=models.CASCADE)
-    location_type = models.ForeignKey(LocationType, on_delete=models.CASCADE)
-    height = models.IntegerField(default=0)
-    width = models.IntegerField(default=0)
-    x = models.IntegerField(default=0)
-    y = models.IntegerField(default=0)
-    created = models.DateTimeField('Creation Time', default=timezone.now)
-    def __str__(self):
-        return f'{self.id} | {self.name}'

@@ -1,0 +1,153 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #222222;
+    color: #222222;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+.content-column {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f8f8;
+    width: 800px;
+    max-width: 100%;
+    margin: 0px auto;
+    height: 100%;
+    min-height: 100vh;
+}
+
+.roll-table {
+    display: flex;
+    flex-direction: column;
+    width: calc(90% - 80px);
+    padding: 40px 40px;
+    margin: 50px auto;
+    border-radius: 10px;
+    background-color: #e6e6e6;
+}
+
+header {
+    display: flex;
+    margin: 0px auto 40px;
+    color: #111111;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.wrapper {
+    border-radius: 10px;
+    border: solid 2px #000200;
+    width: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto;
+}
+table {
+    min-width: 100%;
+}
+
+th {
+    border-bottom: 2px solid black;
+    padding: 10px;
+}
+thead {
+    margin: 0px;
+    padding: 0px;
+}
+thead, tr:nth-child(even) {
+    background-color: #ffffff;
+}
+tr {
+    width: 100%;
+    height: 40px;
+}
+td {
+    text-align: center;
+}
+
+.add-row {
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+}
+.left-col {
+    width: 33%;
+    display: flex;
+}
+.right-col {
+    width: 67%;
+    display: flex;
+}
+.col-content {
+    margin: auto;
+    height: 100%;
+    display: flex;
+}
+.right-content {
+    margin-left: auto;
+    margin-right: 20px;
+}
+label {
+    color: #555555;
+    font-size: 10px;
+    margin: auto;
+}
+input, option, select {
+    background: #ffffff;
+    color: #222222;
+    border: none;
+    height: 35px;
+    border-radius: 5px;
+    margin: auto;
+}
+input {
+    padding-left: 4px;
+}
+
+button {
+    border-radius: 15px;
+    height: 35px;
+    background: #000000;
+    border: none;
+    color: #eeeeee;
+    width: 100px;
+    margin: auto auto auto 100px;
+}
+
+.num-in {
+    width: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    .content-column {
+        margin: 0px;
+        width: 100%;
+    }
+
+    .roll-table {
+        padding: 40px 0px;
+        width: 100%;
+        border-radius: 0px;
+        position: fixed;
+        bottom: 0px;
+    }
+    table, .wrapper {
+        border: none;
+        border-radius: 0px;
+    }
+    button {
+        margin: 10px auto;
+    }
+    .add-row {
+        height: 120px;
+    }
+    .right-content {
+        display: flex;
+        flex-direction: column;
+        padding: 10px auto;
+    }
+}

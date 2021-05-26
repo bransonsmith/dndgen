@@ -8,6 +8,7 @@ from .models.coin_models import *
 from .models.magic_item_models import *
 from .models.monster_models import *
 from .models.world_models import *
+from .models.location_models import *
 
 admin.site.register(TreasureHoardTier)
 admin.site.register(TreasureHoard)
@@ -50,7 +51,9 @@ admin.site.register(EncounterXpThreshold)
 admin.site.register(EncounterDifficulty)
 
 admin.site.register(Region)
-admin.site.register(Location)
 admin.site.register(Environment)
 admin.site.register(EnvironmentType)
+admin.site.register(Location)
 admin.site.register(LocationType)
+admin.site.register(RollTable)
+admin.site.register(LocationRollTableEntry)

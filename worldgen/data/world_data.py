@@ -14,14 +14,6 @@ environment_types = [
     { "name": "Urban" },
 ]
 
-location_types = [
-    { "name": "Arcane Location" },
-    { "name": "Community" },
-    { "name": "Fortification" },
-    { "name": "Natural Site" },
-    { "name": "Religious Site" },
-]
-
 organization_types = [
     { "name": "Business" },
     { "name": "Magical" },

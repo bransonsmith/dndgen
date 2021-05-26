@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'roll_tables/style.css' %}">
+</head>
+<body>
+
+    <div class="content-column">
+
+        <div class="roll-table">
+            <header>{{ roll_table_name }} Roll Table</header>
+            <main>
+                {% if roll_table %}
+                    <div class="wrapper">
+                        <table cellspacing="0" cellpadding="0">
+                            <thead><tr>
+                                <th>1d{{roll_table.total}}</th>
+                                <th> {{ roll_table_name }} </th>
+                            </tr></thead>
+                            <tbody>
+                                {% for entry in roll_table.rows %}
+                                    <tr>
+                                        <td>{{entry.min}}-{{entry.max}}</td>
+                                        <td>{{ entry.text }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <div class="add-row">
+                            <div class="left-col">
+                                <div class="col-content">
+                                    <label>range size</label>
+                                    <input type="number" class="num-in" default="1" placeholder="1">
+                                </div>
+                            </div>
+                            <div class="right-col">
+                                <div class="col-content right-content">
+                                    <select>
+                                        {% for loc in all_locs %}
+                                            <option>{{ loc.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button>
+                                        Add New Entry
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <h4>No roll table exists with the name: {{ roll_table_name }}</h4>
+                {% endif %}
+            </main>
+        </div>
+        
+    </div>
+    
+
+</body>
+</html>
