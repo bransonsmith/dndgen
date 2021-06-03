@@ -1,4 +1,4 @@
-body {
+/* body {
     display: flex;
     flex-direction: column;
     background-color: #222222;
@@ -6,7 +6,7 @@ body {
     margin: 0px;
     padding: 0px;
     height: 100%;
-}
+} */
 
 .content-column {
     display: flex;
@@ -29,13 +29,13 @@ body {
     background-color: #e6e6e6;
 }
 
-header {
+/* header {
     display: flex;
     margin: 0px auto 40px;
     color: #111111;
     font-weight: bold;
     font-size: 24px;
-}
+} */
 
 .wrapper {
     border-radius: 10px;
@@ -96,7 +96,7 @@ label {
     font-size: 10px;
     margin: auto;
 }
-input, option, select {
+/* input, option, select {
     background: #ffffff;
     color: #222222;
     border: none;
@@ -116,11 +116,11 @@ button {
     color: #eeeeee;
     width: 100px;
     margin: auto auto auto 100px;
-}
+/* } 
 
 .num-in {
     width: 30px;
-}
+} */
 
 @media only screen and (max-width: 600px) {
     .content-column {

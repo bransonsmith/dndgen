@@ -2,6 +2,7 @@ from django.db.models.deletion import CASCADE
 from .world_models import Environment
 from django.db import models
 from django.utils import timezone
+from .roll_table_models import RollTable
 
 class LocationType(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -25,16 +26,6 @@ class Location(models.Model):
     created = models.DateTimeField('Creation Time', default=timezone.now)
     def __str__(self):
         return f'{self.id} | {self.name}'
-
-class RollTable(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    description = models.CharField(max_length=500, default='')
-    created = models.DateTimeField('Creation Time', default=timezone.now)
-    def __str__(self):
-        return f'{self.id} | {self.name}'
-    @staticmethod
-    def get_model_from_seed_dict(dict):
-        return RollTable(name=dict["name"], description=dict["description"])
 
 class LocationRollTableEntry(models.Model):
     roll_table = models.ForeignKey(RollTable, on_delete=models.CASCADE)

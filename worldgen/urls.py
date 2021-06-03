@@ -1,11 +1,11 @@
-from django.urls import path
+from django.urls import include, path
+from rest_framework import routers
+from .views import roll_table_views
 
-from .views import views, treasure_views, monster_views, world_views, roll_table_views
+router = routers.DefaultRouter()
+router.register(r'RollTables', roll_table_views.GetAllRollTablesView)
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('treasure', treasure_views.treasure, name='treasure'),
-    path('monster', monster_views.monster, name='monster'),
-    path('world', world_views.world, name='world'),
-    path('roll_table/<str:roll_table_name>', roll_table_views.roll_table, name='roll_table'),
+    path('', include(router.urls)),
+    path('/api/', include('rest_framework.urls', namespace='rest_framework'))
 ]

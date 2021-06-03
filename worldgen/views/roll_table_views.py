@@ -1,8 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from ..models.location_models import *
-import random
-from.views import add, roll_dice, get_new_model_object
+from django.shortcuts import render
+from rest_framework import viewsets
+from ..serializers.roll_table_serializers import RollTableSerializer
+
+class GetAllRollTablesView(viewsets.ModelViewSet):
+    serializer_class = RollTableSerializer
+    queryset = RollTable.objects.all()
+    lookup_field = 'name'
 
 magical_locations = [
     { "roll_range": 10, "description": "", "name": "Hermit Hut" },
