@@ -1,5 +1,3 @@
-from django.db.models.deletion import CASCADE
-from .world_models import Environment
 from django.db import models
 from django.utils import timezone
 

@@ -7,6 +7,7 @@ import math
 from ..data.world_data import *
 from ..models.world_models import *
 from.views import add, roll_dice, get_new_model_object
+from ..models.location_models import *
 
 def world(request):
     outstr = '<style>body {color: #112244; background-color: #f5fdd9; width: 600px; display: flex; margin: auto; flex-direction: column;}</style>'
