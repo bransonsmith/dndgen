@@ -31,9 +31,10 @@ class LocationRollTableEntry(models.Model):
     roll_table = models.ForeignKey(RollTable, on_delete=models.CASCADE)
     location_type = models.ForeignKey(LocationType, on_delete=models.CASCADE)
     roll_quantity = models.IntegerField(default=0)
+    order = models.IntegerField(default=0)
     created = models.DateTimeField('Creation Time', default=timezone.now)
     def __str__(self):
-        return f'{self.id} | {self.name}'
+        return f'{self.id} | {self.roll_table.name} | {self.location_type.name}'
     @staticmethod
     def get_model_from_seed_dict(dict):
         roll_table = RollTable.objects.filter(name__iexact=dict["roll_table"]).first()
